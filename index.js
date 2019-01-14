@@ -2,6 +2,7 @@ const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const multer = require('multer');
 
 const publicRoutes = require('./routes/publicRoutes');
 
@@ -16,6 +17,24 @@ app.use(express.static(path.join(__dirname, 'node_modules/popper.js/dist')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({ extended: false }));
+
+const fileStorage = multer.diskStorage({
+    destination: (req, file, cb) =>{
+        cb(null, 'public/uploads');
+    },
+    filename: (req, file, cb) => {
+        cb(null, new Date().toISOString()+'_'+file.originalname);
+    }
+});
+
+const fileFilter = (req, file, cb) =>{
+    if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg'){
+        cb(null, true);
+    }else{
+        cb(null, false);
+    }
+}
+app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('file'));
 
 app.use(publicRoutes);
 
