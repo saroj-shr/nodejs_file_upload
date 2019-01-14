@@ -1,28 +1,27 @@
-import { join } from 'path';
+const path = require('path');
 
-import express, { static } from 'express';
-import { urlencoded } from 'body-parser';
+const express = require('express');
+const bodyParser = require('body-parser');
 
-//importing routes
-import { publicRoutes } from "./routes/publicRoutes";
+const publicRoutes = require('./routes/publicRoutes');
 
 const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views');
 
-app.use(static(join(__dirname, 'node_modules/bootstrap/dist')));
-app.use(static(join(__dirname, 'node_modules/jquery/dist')));
-app.use(static(join(__dirname, 'node_modules/popper.js/dist')));
-app.use(static(join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
+app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist')));
+app.use(express.static(path.join(__dirname, 'node_modules/popper.js/dist')));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(publicRoutes);
 
 app.use(
     (req, res, next) => {
-        console.log('we are here!!');
+        res.status(404).render('404', {pageTitle: '404 page not found'})
     }
 );
 
