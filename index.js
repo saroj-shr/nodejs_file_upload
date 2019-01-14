@@ -1,19 +1,24 @@
-const path = require('path');
+import { join } from 'path';
 
-const express = require('express');
-const bodyParser = require('body-parser');
+import express, { static } from 'express';
+import { urlencoded } from 'body-parser';
+
+//importing routes
+import { publicRoutes } from "./routes/publicRoutes";
 
 const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views');
 
-app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
-app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist')));
-app.use(express.static(path.join(__dirname, 'node_modules/popper.js/dist')));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(static(join(__dirname, 'node_modules/bootstrap/dist')));
+app.use(static(join(__dirname, 'node_modules/jquery/dist')));
+app.use(static(join(__dirname, 'node_modules/popper.js/dist')));
+app.use(static(join(__dirname, 'public')));
 
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(urlencoded({ extended: false }));
+
+app.use(publicRoutes);
 
 app.use(
     (req, res, next) => {
