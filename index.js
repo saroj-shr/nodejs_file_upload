@@ -45,4 +45,6 @@ app.use(
 );
 
 
-app.listen(4000);
+app.listen(4000, (cb) =>{
+  console.log("Server running at : localhost:4000")
+});
