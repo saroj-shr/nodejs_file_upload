@@ -1,14 +1,14 @@
 {
   "name": "file_upload",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple Nodejs File Uploader",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Saroj Shrestha<saroj.shr911@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.3",
     "bootstrap": "^5.2.0",

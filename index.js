@@ -23,7 +23,7 @@ const fileStorage = multer.diskStorage({
         cb(null, 'public/uploads');
     },
     filename: (req, file, cb) => {
-        cb(null, new Date().toISOString()+'_'+file.originalname);
+        cb(null, new Date().getTime()+'_'+file.originalname);
     }
 });
 
